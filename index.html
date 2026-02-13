@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Valentine</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Georgia, serif;
+            background: linear-gradient(135deg, #1a0a2e 0%, #4a1a4e 50%, #8b2a5c 100%);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        .hearts {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: rgba(255, 105, 180, 0.6);
+            animation: float 15s infinite ease-in-out;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10%, 90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); }
+        }
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 3.5em;
+            background: linear-gradient(45deg, #ff69b4, #ff1493);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            animation: fadeIn 2s ease-out;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 1.3em;
+            color: #ffb6c1;
+            margin-bottom: 40px;
+            animation: fadeIn 2s ease-out 0.3s both;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .love-letter {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            animation: fadeIn 2s ease-out 0.6s both;
+        }
+        .love-letter h2 {
+            color: #ff69b4;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .love-letter p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #ffe4e1;
+            text-align: justify;
+        }
+        .videos-section {
+            margin-bottom: 40px;
+            animation: fadeIn 2s ease-out 0.9s both;
+        }
+        .videos-section h2 {
+            text-align: center;
+            color: #ff69b4;
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .video-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 105, 180, 0.3);
+        }
+        .video-card video {
+            width: 100%;
+            display: block;
+        }
+        .video-card p {
+            padding: 15px;
+            text-align: center;
+            color: #ffb6c1;
+        }
+        .questions-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            animation: fadeIn 2s ease-out 1.2s both;
+        }
+        .questions-section h2 {
+            color: #ff69b4;
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .question-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ff69b4;
+        }
+        .question-card h3 {
+            color: #ffb6c1;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .option-btn {
+            background: transparent;
+            border: 2px solid #ff69b4;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        .option-btn:hover {
+            background: #ff69b4;
+            transform: scale(1.05);
+        }
+        .option-btn.selected {
+            background: #ff1493;
+            border-color: #ff1493;
+        }
+        .response {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255, 105, 180, 0.2);
+            border-radius: 10px;
+            display: none;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            animation: fadeIn 2s ease-out 1.5s both;
+        }
+        .footer p {
+            font-size: 1.5em;
+            color: #ffb6c1;
+            margin-bottom: 20px;
+        }
+        .big-heart {
+            font-size: 80px;
+            animation: heartbeat 1.5s infinite;
+            cursor: pointer;
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5em; }
+            .love-letter, .questions-section { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    <div class="container">
+        <h1>My Valentine</h1>
+        <p class="subtitle">You make my heart dance</p>
+        
+        <section class="love-letter">
+            <h2>My Love For You</h2>
+            <p>From the moment you walked into my life, everything changed. Your smile lights up my darkest days, and your laughter is the melody my heart beats to. Watching you dance with such joy reminds me why I fell for you. You are not just my valentine; you are my favorite everything. Every moment with you feels like a celebration. I promise to keep dancing through life with you, hand in hand. I love you more than words can express. Will you be my valentine, today and always?</p>
+        </section>
+
+        <section class="videos-section">
+            <h2>Moments That Make Me Smile</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <video controls>
+                        <source src="VID_20260121_052847_423.mp4" type="video/mp4">
+                    </video>
+                    <p>Your beautiful moves</p>
+                </div>
+                <div class="video-card">
+                    <video controls>
+                        <source src="VID_20260121_062509_211.mp4" type="video/mp4">
+                    </video>
+                    <p>Absolutely stunning</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="questions-section">
+            <h2>Let's Play a Game</h2>
+            
+            <div class="question-card">
+                <h3>1. What do you love most about us?</h3>
+                <div class="options">
+                    <button class="option-btn" onclick="showResponse(this, 1, 'Our laughter is music to my ears!')">Our laughter</button>
+                    <button class="option-btn" onclick="showResponse(this, 1, 'We truly have a special connection!')">How we understand each other</button>
+                    <button class="option-btn" onclick="showResponse(this, 1, 'Every adventure with you is unforgettable!')">Our adventures</button>
+                    <button class="option-btn" onclick="showResponse(this, 1, 'I love everything about us too!')">All of the above</button>
+                </div>
+                <div class="response" id="response1"></div>
+            </div>
+
+            <div class="question-card">
+                <h3>2. Where should our next date be?</h3>
+                <div class="options">
+                    <button class="option-btn" onclick="showResponse(this, 2, 'Dinner under the stars sounds magical!')">Romantic dinner</button>
+                    <button class="option-btn" onclick="showResponse(this, 2, 'I love dancing with you!')">Dancing</button>
+                    <button class="option-btn" onclick="showResponse(this, 2, 'Cozy nights with you are my favorite!')">Movie night</button>
+                    <button class="option-btn" onclick="showResponse(this, 2, 'I love your sense of adventure!')">Surprise</button>
+                </div>
+                <div class="response" id="response2"></div>
+            </div>
+
+            <div class="question-card">
+                <h3>3. Will you be my Valentine?</h3>
+                <div class="options">
+                    <button class="option-btn" onclick="showResponse(this, 3, 'You have made me the happiest person alive! I LOVE YOU!')">YES!</button>
+                    <button class="option-btn" onclick="showResponse(this, 3, 'You have made me the happiest person alive! I LOVE YOU!')">Absolutely!</button>
+                    <button class="option-btn" onclick="showResponse(this, 3, 'You have made me the happiest person alive! I LOVE YOU!')">Forever!</button>
+                </div>
+                <div class="response" id="response3"></div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>You are my favorite everything.</p>
+            <div class="big-heart" onclick="burst(event)">❤️</div>
+        </footer>
+    </div>
+
+    <script>
+        // Floating hearts
+        for(let i=0; i<20; i++) {
+            let h = document.createElement('div');
+            h.className = 'heart';
+            h.innerHTML = ['❤️','💕','💖','💗'][Math.floor(Math.random()*4)];
+            h.style.left = Math.random()*100 + '%';
+            h.style.animationDuration = (Math.random()*10+10) + 's';
+            h.style.animationDelay = Math.random()*10 + 's';
+            document.getElementById('hearts').appendChild(h);
+        }
+
+        function showResponse(btn, num, msg) {
+            let btns = btn.parentElement.querySelectorAll('.option-btn');
+            btns.forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            let resp = document.getElementById('response'+num);
+            resp.innerHTML = msg;
+            resp.style.display = 'block';
+        }
+
+        function burst(e) {
+            for(let i=0; i<20; i++) {
+                let h = document.createElement('div');
+                h.innerHTML = '❤️';
+                h.style.position = 'fixed';
+                h.style.left = e.clientX + 'px';
+                h.style.top = e.clientY + 'px';
+                h.style.fontSize = '20px';
+                h.style.pointerEvents = 'none';
+                h.style.zIndex = '9999';
+                h.style.transition = 'all 1s ease-out';
+                document.body.appendChild(h);
+                setTimeout(() => {
+                    let a = (Math.PI*2*i)/20;
+                    let d = 100 + Math.random()*100;
+                    h.style.transform = `translate(${Math.cos(a)*d}px, ${Math.sin(a)*d}px) scale(0)`;
+                    h.style.opacity = '0';
+                }, 10);
+                setTimeout(() => h.remove(), 1000);
+            }
+        }
+    </script>
+</body>
+  </html>
